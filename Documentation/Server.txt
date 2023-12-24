@@ -1,0 +1,22 @@
+-NOVA SERVER DOCUMENTATION
+
+-Intro
+Nova Server is TCP/IP server that uses Websockets to establish a long term connection between other Nova and the client.The connection can be used to transfer larger amounts of data quickly and efficiently over long distance.Nova is capable of proceess all this information using Titan AI.Titan is a Large Language Model capable of understanding Human language and processing said information.Titan is also capable of carrying out any instructions sent to it.
+-Installation & Setup
+Nova is available at https://github.com/dea1h/Nova where you install it by the following 1
+-Architecture
+Nova is a 64bit server that operates on Cogsworth Operating System.See https://github.com/dea1h/Cogsworth for more information on Cogsworth.The server uses C 
+-Protocols,Code Snippets
+GET
+POST
+UPDATE
+DELETE
+COM
+
+-Api
+
+-Configuration Options
+
+-Troubleshooting
+-Refrences
+-Conclusion

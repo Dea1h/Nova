@@ -1,0 +1,4 @@
+-NOVA CLIENT DOCUMENTATION
+
+-Intro
+Nova Client is a client platform that uses TCP/IP connection to establish a long term connection between other clients and server and Nova servers.The Client can be used to access information and resources from Nova Servers and other Nova Clients.A Nova Client can become a Proxy to allow another client to access a Nova Server if they are too far away from the server.
