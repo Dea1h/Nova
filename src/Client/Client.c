@@ -1,4 +1,5 @@
 #include <arpa/inet.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -7,7 +8,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <sys/types.h>
 #include <unistd.h>
+
 #define Buffsize 1024
 #define PORT 8080
 int main(int argc, char *argv[]){
@@ -34,34 +37,38 @@ int main(int argc, char *argv[]){
 	int sfd = socket(AF_INET,SOCK_STREAM,0);
 	if(sfd < 0){
 		perror("SOCKET");
+		printf("ERROR CODE: %d\n",errno);
 		return 1;
 	}
 	
 	if(connect(sfd,(struct sockaddr*)&server_info,server_len) < 0){
 		perror("CONNECT");
+		printf("ERROR CODE: %d\n",errno);
 		return 1;
 	}
 	char *buffer = (char*)malloc(Buffsize * sizeof(char));
 	if(buffer == NULL){
 		perror("MALLOC");
+		printf("ERROR CODE: %d\n",errno);
 		return 1;
 	}
 	memset(buffer,0,Buffsize - 1);
 	*(buffer + Buffsize -1) = '\0';
 	while (true) {
-		//int sent = send(sfd,buffer,Buffsize - 1,0);
-		//if(sent < 0){
-		//	perror("SEND");
-		//	return 1;
-		//}
-		int recvd = recv(sfd,buffer,Buffsize - 1, 0);
+		ssize_t sent = send(sfd,buffer,Buffsize - 1,0);
+		if(sent < 0){
+			perror("SEND");
+			printf("ERROR CODE: %d\n",errno);
+			return 1;
+		}
+		ssize_t recvd = recv(sfd,buffer,Buffsize - 1, 0);
 		if(recvd < 0){
 			perror("RECV");
+			printf("ERROR CODE: %d\n",errno);
 			return 1;
 		}
 		printf("%s",buffer);
 		break;
-
 	}
 	free(buffer);
 	close(sfd);
